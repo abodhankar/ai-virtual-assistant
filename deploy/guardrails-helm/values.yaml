@@ -12,12 +12,6 @@ service:
     - port: 8000
       targetPort: 8000
 
-resources:
-  limits:
-    gpu: 1
-  requests:
-    gpu: 1
-
 env:
   NGC_API_KEY: ""
 

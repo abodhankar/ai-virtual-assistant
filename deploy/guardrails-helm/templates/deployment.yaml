@@ -26,11 +26,6 @@ spec:
         env:
         - name: NGC_API_KEY
           value: {{ .Values.env.NGC_API_KEY }}
-        resources:
-          limits:
-            nvidia.com/gpu: {{ .Values.resources.limits.gpu }}
-          requests:
-            nvidia.com/gpu: {{ .Values.resources.requests.gpu }}
         command:
         - /bin/bash
         - -c
