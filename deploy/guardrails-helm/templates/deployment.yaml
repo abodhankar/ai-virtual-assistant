@@ -15,7 +15,7 @@ spec:
       runtimeClassName: nvidia
       containers:
       - name: nemoguardrails
-        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        image: "{{ .Values.image.repository }}"
         imagePullPolicy: {{ .Values.image.pullPolicy }}
         securityContext:
           {{- toYaml .Values.securityContext | nindent 12 }}
@@ -26,13 +26,11 @@ spec:
         env:
         - name: NGC_API_KEY
           value: {{ .Values.env.NGC_API_KEY }}
-        - name: OPENAI_API_KEY
-          value: {{ .Values.env.OPENAI_API_KEY }}
         resources:
           limits:
-            nvidia.com/gpu: {{ .Values.resources.limits.nvidia.com/gpu }}
+            nvidia.com/gpu: {{ .Values.resources.limits.gpu }}
           requests:
-            nvidia.com/gpu: {{ .Values.resources.requests.nvidia.com/gpu }}
+            nvidia.com/gpu: {{ .Values.resources.requests.gpu }}
         command:
         - /bin/bash
         - -c
