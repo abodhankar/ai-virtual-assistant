@@ -1,0 +1,20 @@
+replicaCount: 1
+
+image:
+  repository: compose-nemoguardrails
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  ports:
+    - port: 8650
+      targetPort: 8650
+    - port: 8000
+      targetPort: 8000
+
+env:
+  NGC_API_KEY: ""
+
+securityContext:
+  runAsUser: 1000
+  runAsGroup: 1000

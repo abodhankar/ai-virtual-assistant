@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-nemoguardrails
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}-nemoguardrails
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-nemoguardrails
+    spec:
+      runtimeClassName: nvidia
+      containers:
+      - name: nemoguardrails
+        image: "{{ .Values.image.repository }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        securityContext:
+          {{- toYaml .Values.securityContext | nindent 12 }}
+        ports:
+          {{- range .Values.service.ports }}
+          - containerPort: {{ .targetPort }}
+          {{- end }}
+        env:
+        - name: NGC_API_KEY
+          value: {{ .Values.env.NGC_API_KEY }}
+        command:
+        - /bin/bash
+        - -c
+        - |
+          export OPENAI_API_KEY=${OPENAI_API_KEY}
+          cd nemoguardrails
+          pip install --no-cache-dir -e .[all]

@@ -1,0 +1,5 @@
+apiVersion: v2
+name: nemoguardrails
+description: A Helm chart for deploying the nemoguardrails service
+version: 0.1.0
+appVersion: "1.16.0"

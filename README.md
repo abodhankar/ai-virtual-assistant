@@ -582,6 +582,20 @@ The NodePort is the one that follows the container port`3001:<nodePort>/TCP`
 
 In this example case, the node port is listed as `32417`, hence the UI can be accessed at http://0.0.0.0:32417/
 
+#### Deploy NeMo Guardrails Helm Chart
+
+Run the below command to create a Guardrails container 
+
+```
+docker compose -f deploy/compose/nemoguardrails.yaml build
+```
+
+Now install the NeMo Guardrails Helm Chart with below command
+
+```
+helm install nemo-guardrails deploy/guardrails-helm/ --set env.NGC_API_KEY=$NGC_API_KEY
+```
+
 ## Troubleshooting
 ### Container build issues
 
